@@ -15,39 +15,35 @@
 import random
 import string
 
-
-
 def Encode(message:str)->str:
     
-    if(len(message)<3):
-       return message[::-1]
-    else:
-    
-      my_array=list(message)
-      
-      my_array.append(my_array[0])
-      my_array.pop(0)
-      
-      message="".join(my_array)
-      
-      # Random lowercase letter
-      message1 = "".join([random.choice(string.ascii_lowercase) for _ in range(3)])
-      message2 = "".join([random.choice(string.ascii_lowercase) for _ in range(3)])
-      
-      return message1+message+message2
-  
+ words=message.split(" ")
+ finalMessage=[]
+ for word in words:
+        if(len(word)<3):
+            finalMessage.append(word[::-1])
+        else:
+            word=word[1:]+word[0]
+            # Random lowercase letter
+            message1 = "".join([random.choice(string.ascii_lowercase) for _ in range(3)])
+            message2 = "".join([random.choice(string.ascii_lowercase) for _ in range(3)])
+            finalMessage.append(message1+word+message2)
+ return " ".join(finalMessage)
+
 def Decode(message:str)->str:
-    
-    if(len(message)<3):
-       return message[::-1]
-    else:
-        my_list=list(message)
-        my_list[:3]=[]
-        my_list[-3:]=[]
-        last_letter = my_list.pop()  # Remove the last letter
-        my_list.insert(0, last_letter)  # Add it to the beginning
-        
-        return "".join(my_list)
+
+ words=message.split(" ")
+ finalMessage=[]
+ 
+ for word in words:   
+        if(len(word)<3):
+            finalMessage.append(word[::-1])
+        else:
+            word=word[3:-3]
+            word=word[-1] + word[:-1]
+            finalMessage.append(word)             
+ return " ".join(finalMessage)
+ 
  
 a=input("Please Enter the message to Encode:\n")
 print("Your Encoded message is:\n"+Encode(a))
@@ -56,6 +52,7 @@ print()
 
 b=input("Please Enter the message to Decode:\n")
 print("Your Decoded message is:\n"+Decode(b))
+
 
 
 # Author: Jenis Surani
